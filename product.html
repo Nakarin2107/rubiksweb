@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rubik's Cube Store</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f8f8;
+        margin: 0;
+        padding: 0;
+    }
+    
+    header {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 20px 0;
+    }
+    
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 20px;
+    }
+    
+    .product {
+        width: 200px;
+        margin: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
+    
+    .product:hover {
+        transform: translateY(-5px);
+    }
+    
+    .product img {
+        width: 100%;
+        height: auto;
+    }
+    
+    .product h2 {
+        margin-top: 10px;
+        font-size: 18px;
+        color: #333;
+    }
+    
+    .product p {
+        color: #666;
+    }
+    
+    .product button {
+        cursor: pointer;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        margin-top: 10px;
+        transition: background-color 0.3s ease;
+    }
+    
+    .product button:hover {
+        background-color: #45a049;
+    }
+    
+    aside {
+        width: 300px;
+        margin: auto;
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+    }
+    
+    aside h2 {
+        color: #333;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ccc; 
+        padding-bottom: 5px;
+    }
+    
+    aside ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    
+    aside li {
+        margin-bottom: 5px;
+        color: #666;
+    }
+    
+    .total {
+        font-weight: bold;
+        margin-top: 10px;
+    }
+    
+    button {
+        cursor: pointer;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        margin-top: 10px;
+        transition: background-color 0.3s ease;
+    }
+    
+    button:hover {
+        background-color: #45a049;
+    }
+    
+    .product:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 5px 15px rgba(248, 3, 3, 0.5); 
+        transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    }
+    
+    
+    
+  </style>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>Rubik's Cube Store</h1>
+    </header>
+    <div class="container">
+      <div v-for="product in products" :key="product.id" class="product">
+        <img :src="product.image" :alt="product.name">
+        <h2>{{ product.name }}</h2>
+        <p>{{ product.description }}</p>
+        <p>Price: ${{ product.price }}</p>
+        <button @click="addToCart(product)">Add to Cart</button>
+      </div>
+    </div>
+    <aside>
+      <h2>Cart</h2>
+      <ul>
+        <li v-for="(item, index) in cart" :key="index">{{ item.name }} - ${{ item.price }}</li>
+      </ul>
+      <p class="total">Total: ${{ total }}</p>
+    </aside>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        products: [
+          { id: 1, name: "3x3 Rubik's Cube", description: "Classic Rubik's Cube", price: 10, image: "https://mastercubestore.com/7901-large_default/gan-13-maglev-m-3x3-uv-coated-stickerless.jpg" },
+          { id: 2, name: "4x4 Rubik's Cube", description: "Rubik's Revenge", price: 15, image: "https://cuboss.com/wp-content/uploads/2020/02/gan-460-m-4x4-stickerless.jpg" },
+          { id: 3, name: "5x5 Rubik's Cube", description: "Professor's Cube", price: 20, image: "https://www.toottoottoys.com.au/cdn/shop/products/lxp8rhedx1grprymbiwc__90545_1_800x.webp?v=1669599507" }
+        ],
+        cart: []
+      },
+      computed: {
+        total() {
+          return this.cart.reduce((acc, item) => acc + item.price, 0);
+        }
+      },
+      methods: {
+        addToCart(product) {
+          this.cart.push(product);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
